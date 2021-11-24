@@ -1,0 +1,23 @@
+.nav {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 100%;
+  min-height: 2rem;
+  background-color: #212636;
+  padding: 1rem 1rem 0.5rem 1rem;
+}
+
+.nav-links {
+  grid-column: 1 / 2;
+  margin-left: 0.5rem;
+  display: flex;
+}
+
+.nav-links .link {
+  text-decoration: none;
+  color: #b2b6b0;
+  margin: 0.5rem;
+  font-size: 1.875rem;
+  font-family: "Teko", sans-serif;
+  align-self: end;
+}
