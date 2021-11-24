@@ -1,9 +1,18 @@
 import "./Home.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Entry } from "../Entry/Entry";
 
 export function Home() {
   const [entries, setEntries] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch("api/job/");
+      const jsonResponse = await response.json();
+      setEntries(jsonResponse);
+    }
+    fetchData();
+  }, []);
 
   const removeEntry = (entryIdToRemove) => {
     setEntries((entries) =>
