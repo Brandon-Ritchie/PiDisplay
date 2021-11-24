@@ -37,6 +37,7 @@ export function Home() {
             ))}
           </ul>
         </ul>
+        <input type="submit" value="submit" />
       </form>
     </div>
   );
