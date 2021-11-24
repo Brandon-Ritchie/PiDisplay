@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path, re_path
+from django.urls import include, path, re_path
 from django.shortcuts import render
 
 
@@ -9,6 +9,7 @@ def render_react(request):
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("", include("jobs.urls")),
     re_path(r"^$", render_react),
     re_path(r"^(?:.*)/?$", render_react),
 ]
