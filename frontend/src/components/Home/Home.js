@@ -3,15 +3,7 @@ import React, { useState } from "react";
 import { Entry } from "../Entry/Entry";
 
 export function Home() {
-  const [entries, setEntries] = useState([
-    {
-      id: 1,
-      date: "2021-12-12",
-      start_time: "15:00",
-      end_time: "17:00",
-      link: "google.com",
-    },
-  ]);
+  const [entries, setEntries] = useState([]);
 
   const removeEntry = (entryIdToRemove) => {
     setEntries((entries) =>
