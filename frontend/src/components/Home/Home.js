@@ -1,6 +1,7 @@
 import "./Home.css";
 import React, { useState, useEffect } from "react";
 import { Entry } from "../Entry/Entry";
+import JobDataService from "../../services/job.service";
 
 export function Home() {
   const [entries, setEntries] = useState([]);
@@ -15,6 +16,11 @@ export function Home() {
   }, []);
 
   const removeEntry = (entryIdToRemove) => {
+    async function deleteFromDatabase(id) {
+      JobDataService.delete(id);
+    }
+    deleteFromDatabase(entryIdToRemove);
+
     setEntries((entries) =>
       entries.filter((entry) => entry.id !== entryIdToRemove)
     );

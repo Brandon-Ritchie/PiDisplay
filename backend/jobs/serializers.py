@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import Job
 
 
-class JobSealizer(serializers.ModelSerializer):
+class JobSerializer(serializers.ModelSerializer):
     class Meta:
         model = Job
         fields = ("id", "date", "start_time", "end_time", "link")

@@ -11,9 +11,9 @@ export function Entry(props) {
   return (
     <li className="entry">
       <input type="date" value={entry.date} />
-      <input type="time" defaultValue={entry.start_time} />
-      <input type="time" defaultValue={entry.end_time} />
-      <input type="string" defaultValue={entry.link} />
+      <input type="time" value={entry.start_time} />
+      <input type="time" value={entry.end_time} />
+      <input type="string" value={entry.link} />
       <button
         aria-label="Remove entry"
         className="remove-button"
