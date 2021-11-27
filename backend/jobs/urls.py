@@ -1,4 +1,7 @@
 from django.urls import path
-from .views import JobListCreate
+from .views import JobList, JobDetail
+from rest_framework.urlpatterns import format_suffix_patterns
 
-urlpatterns = [path("api/job/", JobListCreate.as_view())]
+urlpatterns = [path("", JobList.as_view()), path("<int:pk>/", JobDetail.as_view())]
+
+urlpatterns = format_suffix_patterns(urlpatterns)

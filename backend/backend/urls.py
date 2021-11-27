@@ -9,7 +9,7 @@ def render_react(request):
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include("jobs.urls")),
+    path("api/job/", include("jobs.urls")),
     re_path(r"^$", render_react),
     re_path(r"^(?:.*)/?$", render_react),
 ]
