@@ -7,10 +7,10 @@ import { AddEntry } from "../AddEntry/AddEntry";
 export function Home() {
   const [entries, setEntries] = useState([]);
 
-  async function fetchData() {
+  const fetchData = async () => {
     const response = await JobDataService.getAll();
     setEntries(response.data);
-  }
+  };
 
   useEffect(() => {
     fetchData();
@@ -35,19 +35,32 @@ export function Home() {
   const addEntry = (entryToAdd) => {
     async function addToDatabase(entry) {
       await JobDataService.create(entry);
+      setEntries((prev) => {
+        return [...prev, entryToAdd];
+      });
+      await fetchData();
     }
 
     try {
       addToDatabase(entryToAdd);
-
-      setEntries((prev) => {
-        return [...prev, entryToAdd];
-      });
     } catch (error) {
       alert(error);
     }
+  };
 
-    fetchData();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    for (let i = 0; i < entries.length; i++) {
+      JobDataService.update(entries[i].id, entries[i]);
+    }
+  };
+
+  const updateEntry = (newEntry) => {
+    const entryToChange = entries.filter(
+      (entry) => entry.id === newEntry["id"]
+    );
+    const entryToChangeIndex = entryToChange["id"];
+    entries[entryToChangeIndex] = newEntry;
   };
 
   return (
@@ -61,12 +74,18 @@ export function Home() {
         <p></p>
       </div>
       <AddEntry addEntry={addEntry} />
-      <form>
+      <form onSubmit={handleSubmit}>
         <ul className="entries">
           {entries.map((entry) => (
-            <Entry key={entry.id} entry={entry} removeEntry={removeEntry} />
+            <Entry
+              key={entry.id}
+              entry={entry}
+              removeEntry={removeEntry}
+              updateEntry={updateEntry}
+            />
           ))}
         </ul>
+        <input type="reset" value="Reset" />
         <input type="submit" value="submit" />
       </form>
     </div>
