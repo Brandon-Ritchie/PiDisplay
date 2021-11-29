@@ -64,29 +64,30 @@ export function Home() {
   };
 
   return (
-    <div>
-      <h1>Schedule</h1>
-      <div className="header-row">
+    <div className="home grid-container">
+      <h1 className="title">Schedule</h1>
+      <div className="header-row grid-container">
         <p>Date</p>
         <p>Start Time</p>
         <p>End Time</p>
         <p>Link</p>
-        <p></p>
       </div>
       <AddEntry addEntry={addEntry} />
-      <form onSubmit={handleSubmit}>
-        <ul className="entries">
-          {entries.map((entry) => (
-            <Entry
-              key={entry.id}
-              entry={entry}
-              removeEntry={removeEntry}
-              updateEntry={updateEntry}
-            />
-          ))}
-        </ul>
-        <input type="reset" value="Reset" />
-        <input type="submit" value="submit" />
+      <div className="header-row-break"></div>
+      <form className="entries grid-container" onSubmit={handleSubmit}>
+        {entries.map((entry) => (
+          <Entry
+            className="entry"
+            key={entry.id}
+            entry={entry}
+            removeEntry={removeEntry}
+            updateEntry={updateEntry}
+          />
+        ))}
+        <div className="form-buttons grid-container">
+          <input type="reset" value="Reset" />
+          <input type="submit" value="submit" />
+        </div>
       </form>
     </div>
   );
