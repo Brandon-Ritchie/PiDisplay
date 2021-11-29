@@ -15,26 +15,30 @@ export function Entry(props) {
   };
 
   return (
-    <li className="entry">
+    <div className="entry-container">
       <input
+        className="input"
         defaultValue={entry.date || ""}
         name="date"
         type="date"
         onChange={handleChange}
       />
       <input
+        className="input"
         defaultValue={entry.start_time || ""}
         name="start_time"
         type="time"
         onChange={handleChange}
       />
       <input
+        className="input"
         defaultValue={entry.end_time || ""}
         name="end_time"
         type="time"
         onChange={handleChange}
       />
       <input
+        className="input"
         defaultValue={entry.link || ""}
         name="link"
         type="string"
@@ -48,6 +52,6 @@ export function Entry(props) {
       >
         &times;
       </button>
-    </li>
+    </div>
   );
 }

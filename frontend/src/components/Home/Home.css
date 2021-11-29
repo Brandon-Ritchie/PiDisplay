@@ -1,9 +1,46 @@
-.header-row {
+.grid-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr) 2rem;
+  grid-template-columns: repeat(4, 1fr) 3rem;
+  row-gap: 0.25rem;
+  column-gap: 0.25rem;
 }
 
-.entries .entry {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr) 2rem;
+.home {
+  margin: auto;
+  max-width: 900px;
+  flex-direction: column;
+  grid-template-columns: 1fr;
+}
+
+.title {
+  text-align: left;
+  margin-left: 1rem;
+  margin-top: 1rem;
+}
+
+.header-row {
+  text-align: left;
+  justify-content: flex-start;
+}
+
+.header-row p {
+  margin-left: 0.25rem;
+  flex-grow: 5;
+  min-width: 7rem;
+  flex-basis: 7rem;
+}
+
+.header-row-break {
+  height: 0.25rem;
+  background-color: #212636;
+}
+
+.entries {
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.form-buttons {
+  justify-self: end;
+  grid-template-columns: repeat(2, 1fr);
 }
