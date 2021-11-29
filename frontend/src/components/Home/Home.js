@@ -16,6 +16,24 @@ export function Home() {
     fetchData();
   }, []);
 
+  const [sortedEntries, setSortedEntries] = useState([]);
+
+  useEffect(() => {
+    const sortEntries = () => {
+      const copiedEntries = [...entries];
+      const sortedEntries = copiedEntries.sort((a, b) => {
+        if (a.date === b.date) {
+          return a.start_time < b.start_time ? -1 : 1;
+        } else {
+          return a.date < b.date ? -1 : 1;
+        }
+      });
+
+      setSortedEntries(sortedEntries);
+    };
+    sortEntries();
+  }, [entries]);
+
   const removeEntry = (entryIdToRemove) => {
     async function deleteFromDatabase(id) {
       await JobDataService.delete(id);
@@ -75,7 +93,7 @@ export function Home() {
       <AddEntry addEntry={addEntry} />
       <div className="header-row-break"></div>
       <form className="entries grid-container" onSubmit={handleSubmit}>
-        {entries.map((entry) => (
+        {sortedEntries.map((entry) => (
           <Entry
             className="entry"
             key={entry.id}
@@ -86,7 +104,7 @@ export function Home() {
         ))}
         <div className="form-buttons grid-container">
           <input type="reset" value="Reset" />
-          <input type="submit" value="submit" />
+          <input type="submit" value="Submit" />
         </div>
       </form>
     </div>
