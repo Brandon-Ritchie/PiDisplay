@@ -1,0 +1,25 @@
+.test-container {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  max-width: 900px;
+  margin: 0 auto;
+  justify-items: center;
+  grid-gap: 0.25rem;
+}
+
+.test-buttons-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 0.25rem;
+}
+
+.link-test-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-gap: 0.25rem;
+}
+
+.link-test-container .test-link-label {
+  justify-self: end;
+  align-self: center;
+}

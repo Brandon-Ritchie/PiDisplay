@@ -8,6 +8,9 @@ export function Nav() {
         <Link to="/" className="link">
           Home
         </Link>
+        <Link to="/test" className="link">
+          Test
+        </Link>
       </div>
     </div>
   );
