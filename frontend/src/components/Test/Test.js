@@ -1,15 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Test.css";
 
 export function Test() {
-  const [link, setLink] = useState({});
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const { name, value } = e.target;
-    console.log(name);
-    console.log(value);
-  };
-
   const shutdown = () => {
     fetch("http://localhost:8000/api/shutdown/");
   };

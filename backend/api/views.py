@@ -1,25 +1,36 @@
 from .models import Job
-from .serializers import JobSerializer
+from .serializers import JobSerializer, UserSerializer
 from rest_framework import generics, permissions
 from rest_framework.views import APIView
 from django.http import HttpResponse
 import os
+from django.contrib.auth.models import User
 
 # Create your views here.
 class JobList(generics.ListCreateAPIView):
     queryset = Job.objects.all()
     serializer_class = JobSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
 
 
 class JobDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Job.objects.all()
     serializer_class = JobSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class UserList(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class UserDetail(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 
 class Shutdown(APIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         os.system("sudo shutdown -h now")
@@ -27,7 +38,7 @@ class Shutdown(APIView):
 
 
 class Reboot(APIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
         os.system("sudo reboot")
@@ -35,7 +46,7 @@ class Reboot(APIView):
 
 
 class TurnOnDisplay(APIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
         os.system('echo "on 0.0.0.0" | cec-client -s -d 1')
@@ -43,7 +54,7 @@ class TurnOnDisplay(APIView):
 
 
 class TurnOffDisplay(APIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
         os.system('echo "standby 0.0.0.0" | cec-client -s -d 1')
