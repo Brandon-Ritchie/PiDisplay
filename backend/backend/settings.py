@@ -38,9 +38,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # Third Party Apps
     "corsheaders",
     "rest_framework",
-    "jobs.apps.JobsConfig",
+    # Local Apps
+    "api.apps.APIConfig",
 ]
 
 MIDDLEWARE = [
@@ -93,8 +95,6 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
-        "USER": "root",
-        "Password": "123456",
         "HOST": "127.0.0.1",
     }
 }
@@ -148,4 +148,13 @@ CORS_ORIGIN_WHITELIST = ["http://localhost:3000", "http://127.0.0.1:8000"]
 CORS_ALLOW_CREDENTIALS = True
 
 CSRF_TRUSTED_ORIGINS = ["localhost:3000", "127.0.0.1:8000"]
-CSRF_COOKING_NAME = "XSRF-TOKEN"
+
+CSRF_COOKIE_NAME = "XSRF-TOKEN"
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.BasicAuthentication",
+    ]
+}
+
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
