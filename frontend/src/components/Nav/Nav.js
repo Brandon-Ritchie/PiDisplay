@@ -8,8 +8,8 @@ export function Nav() {
         <Link to="/" className="link">
           Home
         </Link>
-        <Link to="/test" className="link">
-          Test
+        <Link to="/controls" className="link">
+          Controls
         </Link>
       </div>
     </div>

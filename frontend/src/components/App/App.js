@@ -3,7 +3,7 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Home } from "../Home/Home";
 import { Nav } from "../Nav/Nav";
-import { Test } from "../Test/Test";
+import { Controls } from "../Controls/Controls";
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
       <Nav />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/test" element={<Test />} />
+        <Route path="/controls" element={<Controls />} />
       </Routes>
     </Router>
   );

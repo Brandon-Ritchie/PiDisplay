@@ -1,21 +1,22 @@
 import React from "react";
-import "./Test.css";
+import "./Controls.css";
+import ControlsDataService from "../../services/controls.service";
 
-export function Test() {
+export function Controls() {
   const shutdown = () => {
-    fetch("http://localhost:8000/api/shutdown/");
+    ControlsDataService.shutdown();
   };
 
   const reboot = () => {
-    fetch("http://localhost:8000/api/reboot/");
+    ControlsDataService.reboot();
   };
 
   const turnOnDisplay = () => {
-    fetch("http://localhost:8000/api/turn-on-display/");
+    ControlsDataService.turnOnDisplay();
   };
 
   const turnOffDisplay = () => {
-    fetch("http://localhost:8000/api/turn-off-display/");
+    ControlsDataService.turnOffDisplay();
   };
 
   return (

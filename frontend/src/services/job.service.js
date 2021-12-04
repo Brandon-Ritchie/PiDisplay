@@ -1,7 +1,7 @@
 import http from "../http-common";
 
 class JobDataService {
-  async getAll() {
+  getAll() {
     return http.get("/job/");
   }
 
