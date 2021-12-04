@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from django.http import HttpResponse
 import os
 from django.contrib.auth.models import User
+from crontab import CronTab
 
 # Create your views here.
 class JobList(generics.ListCreateAPIView):
@@ -58,4 +59,49 @@ class TurnOffDisplay(APIView):
 
     def get(self, request):
         os.system('echo "standby 0.0.0.0" | cec-client -s -d 1')
+        return HttpResponse()
+
+
+class UpdateCrontab(APIView):
+    premission_classes = [
+        permissions.AllowAny  # needs to be set to IsAuthenticated once Service is set up on front end
+    ]
+
+    def get(self, request):
+        all_jobs = Job.objects.all()
+
+        cron = CronTab(user="pi")  # access crontab as set user, "pi" for production
+        cron.remove_all()
+
+        # Command Variables
+        on_command = "echo 'on 0.0.0.0' | cec-client -s -d 1 && DISPLAY=:0 python3 /home/pi/Scripts/PiDisplay/main.py >> /home/pi/Scripts/PiDisplay/pi_display.log 2>&1"
+        off_command = "echo 'standby 0.0.0.0' | cec-client -s -d 1 && pkill chromium"
+
+        for job in all_jobs:
+            job_date_split = job.date.split(
+                "-"
+            )  # [0] is year, [1] is month, [2] is day
+
+            job_start_time_split = job.start_time.split(
+                ":"  # [0] is hours, [1] is minutes
+            )
+
+            job_end_time_split = job.end_time.split(":")  # [0] is hours, [1] is minutes
+
+            job_link = job.link  # Need to figure out how to set
+
+            start_job = cron.new(command=on_command)
+            start_job.month.on(job_date_split[1])
+            start_job.day.on(job_date_split[2])
+            start_job.hour.on(job_start_time_split[0])
+            start_job.minute.on(job_start_time_split[1])
+
+            end_job = cron.new(command=off_command)
+            end_job.month.on(job_date_split[1])
+            end_job.day.on(job_date_split[2])
+            end_job.hour.on(job_end_time_split[0])
+            end_job.minute.on(job_end_time_split[1])
+
+        cron.write()
+
         return HttpResponse()

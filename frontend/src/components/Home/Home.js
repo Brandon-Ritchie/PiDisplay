@@ -66,11 +66,13 @@ export function Home() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     for (let i = 0; i < entries.length; i++) {
-      JobDataService.update(entries[i].id, entries[i]);
+      await JobDataService.update(entries[i].id, entries[i]);
     }
+    await fetch("http://localhost:8000/api/update-cron-jobs/");
+    alert("Update successful.");
   };
 
   const updateEntry = (newEntry) => {

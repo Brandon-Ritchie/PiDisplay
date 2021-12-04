@@ -1,5 +1,13 @@
 from django.urls import path
-from .views import JobList, JobDetail, Shutdown, Reboot, TurnOnDisplay, TurnOffDisplay
+from .views import (
+    JobList,
+    JobDetail,
+    Shutdown,
+    Reboot,
+    TurnOnDisplay,
+    TurnOffDisplay,
+    UpdateCrontab,
+)
 from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
@@ -9,6 +17,7 @@ urlpatterns = [
     path("reboot/", Reboot.as_view()),
     path("turn-on-display/", TurnOnDisplay.as_view()),
     path("turn-off-display/", TurnOffDisplay.as_view()),
+    path("update-cron-jobs/", UpdateCrontab.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
