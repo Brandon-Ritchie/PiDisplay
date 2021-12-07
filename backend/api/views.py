@@ -74,7 +74,7 @@ class UpdateCrontab(APIView):
         cron.remove_all()
 
         # Command Variables
-        on_command = "echo 'on 0.0.0.0' | cec-client -s -d 1 && DISPLAY=:0 python3 /home/pi/Scripts/PiDisplay/main.py >> /home/pi/Scripts/PiDisplay/pi_display.log 2>&1"
+        on_command = "echo 'on 0.0.0.0' | cec-client -s -d 1 && DISPLAY=:0 python3 /home/pi/pi-display/backend/api/run_display.py >> /home/pi/Scripts/PiDisplay/pi_display.log 2>&1"
         off_command = "echo 'standby 0.0.0.0' | cec-client -s -d 1 && pkill chromium"
 
         for job in all_jobs:
@@ -87,8 +87,6 @@ class UpdateCrontab(APIView):
             )
 
             job_end_time_split = job.end_time.split(":")  # [0] is hours, [1] is minutes
-
-            job_link = job.link  # Need to figure out how to set
 
             start_job = cron.new(command=on_command)
             start_job.month.on(job_date_split[1])
