@@ -74,10 +74,13 @@ class UpdateCrontab(APIView):
         cron.remove_all()
 
         # Command Variables
-        on_command = "echo 'on 0.0.0.0' | cec-client -s -d 1 && DISPLAY=:0 python3 /home/pi/pi-display/backend/api/run_display.py >> /home/pi/Scripts/PiDisplay/pi_display.log 2>&1"
-        off_command = "echo 'standby 0.0.0.0' | cec-client -s -d 1 && pkill chromium"
 
         for job in all_jobs:
+            on_command = f"echo 'on 0.0.0.0' | cec-client -s -d 1 && echo \"link = '{job.link}'\" > /home/pi/pi-display/run-display/link.py && DISPLAY=:0 python3 /home/pi/pi-display/run-display/run_display.py >> /home/pi/Scripts/PiDisplay/pi_display.log 2>&1"
+            off_command = (
+                "echo 'standby 0.0.0.0' | cec-client -s -d 1 && pkill chromium"
+            )
+
             job_date_split = job.date.split(
                 "-"
             )  # [0] is year, [1] is month, [2] is day
