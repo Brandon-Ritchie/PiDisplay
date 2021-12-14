@@ -126,6 +126,10 @@ touch ~/pi-display/backend/.env
 sudo nano ~/pi-display/backend/.env
 ```
 
+You can generate a secret key here:
+
+https://miniwebtool.com/django-secret-key-generator/
+
 Paste the following text into your .env file
 
 ```
