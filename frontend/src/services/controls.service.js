@@ -2,19 +2,19 @@ import http from "../http-common";
 
 class ControlsDataService {
   shutdown() {
-    return http.get("/shutdown/");
+    return http.get("api/shutdown/");
   }
 
   reboot() {
-    return http.get("/reboot/");
+    return http.get("api/reboot/");
   }
 
   turnOnDisplay() {
-    return http.get("/turn-on-display/");
+    return http.get("api/turn-on-display/");
   }
 
   turnOffDisplay() {
-    return http.get("/turn-off-display/");
+    return http.get("api/turn-off-display/");
   }
 }
 
