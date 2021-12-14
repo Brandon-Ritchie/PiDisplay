@@ -2,12 +2,13 @@
 
 Enable a Raspberry Pi to automatically run a cec-enabled display automatically.
 
-## Table of Contentss
+## Table of Contents
 
-- [General Information] (#general-information)
-- [Technologies] (#technologies)
-- [Setup] (#setup)
-- [Status] (#status)
+- [PiDisplay - Automation for Digital Displays](#pidisplay---automation-for-digital-displays)
+  - [Table of Contents](#table-of-contents)
+  - [General Information](#general-information)
+  - [Technologies](#technologies)
+  - [Setup](#setup)
 
 ## General Information
 
