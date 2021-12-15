@@ -70,15 +70,13 @@ class UpdateCrontab(APIView):
     def get(self, request):
         all_jobs = Job.objects.all()
 
-        cron = CronTab(
-            user="www-data"
-        )  # access crontab as set user, "www-data" for production
+        cron = CronTab(user="pi")  # access crontab as set user, "pi" for production
         cron.remove_all()
 
         # Command Variables
 
         for job in all_jobs:
-            on_command = f"echo 'on 0.0.0.0' | cec-client -s -d 1 && echo \"link = '{job.link}'\" > /home/pi/pi-display/run-display/link.py && DISPLAY=:0 python3 /home/pi/pi-display/run-display/run_display.py >> /home/pi/Scripts/PiDisplay/pi_display.log 2>&1"
+            on_command = f"echo 'on 0.0.0.0' | cec-client -s -d 1 && echo \"link = '{job.link}'\" > /home/pi/pi-display/run-display/link.py && DISPLAY=:0 python3 /home/pi/pi-display/run-display/run_display.py >> /home/pi/pi-display/pi-display.log 2>&1"
             off_command = (
                 "echo 'standby 0.0.0.0' | cec-client -s -d 1 && pkill chromium"
             )

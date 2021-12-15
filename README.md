@@ -151,6 +151,19 @@ Install Apache2 with the following command:
 sudo apt install apache2 -y
 ```
 
+Change apache user to pi
+
+```
+sudo nano etc/apache2/envvars
+```
+
+Edit the following lines
+
+```
+export APACHE_RUN_USER=pi
+export APACHE_RUN_GROUP=pi
+```
+
 Set permissions and change ownership with the following commands
 
 ```
@@ -158,9 +171,9 @@ sudo usermod -a -G www-data pi
 sudo chown -R -f www-data:www-data /var/www/html
 chmod g+w ~/pi-display/backend
 chmod g+w ~/pi-display/backend/db.sqlite3
-sudo chown :www-data ~/pi-display/.venv
-sudo chown :www-data ~/pi-display/backend
-sudo chown :www-data ~/pi-display/backend/db.sqlite3
+// sudo chown www-data ~/pi-display/.venv
+// sudo chown www-data ~/pi-display/backend
+// sudo chown www-data ~/pi-display/backend/db.sqlite3
 ```
 
 > Make sure to logout and then back in for the changes to take effect.
