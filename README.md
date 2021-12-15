@@ -136,11 +136,13 @@ Paste the following text into your .env file
 SECRET_KEY=<insert your secret key here>
 ```
 
-1.  Install cec-utils and chromium-chromedriver
+12. Install cec-utils, chromium-chromedriver, and system python packages
 
 ```
 sudo apt install cec-utils -y
 sudo apt install chromium-chromedriver
+pip install selenium
+pip install pyautogui
 ```
 
 13. Install Apache2 Server on Pi
@@ -151,6 +153,19 @@ Install Apache2 with the following command:
 sudo apt install apache2 -y
 ```
 
+Change apache user to pi
+
+```
+sudo nano etc/apache2/envvars
+```
+
+Edit the following lines
+
+```
+export APACHE_RUN_USER=pi
+export APACHE_RUN_GROUP=pi
+```
+
 Set permissions and change ownership with the following commands
 
 ```
@@ -158,9 +173,9 @@ sudo usermod -a -G www-data pi
 sudo chown -R -f www-data:www-data /var/www/html
 chmod g+w ~/pi-display/backend
 chmod g+w ~/pi-display/backend/db.sqlite3
-sudo chown :www-data ~/pi-display/.venv
-sudo chown :www-data ~/pi-display/backend
-sudo chown :www-data ~/pi-display/backend/db.sqlite3
+//?? sudo chown www-data ~/pi-display/.venv
+//?? sudo chown www-data ~/pi-display/backend
+//?? sudo chown www-data ~/pi-display/backend/db.sqlite3
 ```
 
 > Make sure to logout and then back in for the changes to take effect.
@@ -211,7 +226,7 @@ Restart Apache for changes to take effect:
 sudo systemctl restart apache2
 ```
 
-1.  setup passwordless shutdown in /etc/sudoers:
+1.  setup passwordless shutdown and reboot in /etc/sudoers:
 
 https://help.ubuntu.com/community/Sudoers
 
