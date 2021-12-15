@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Entry } from "../Entry/Entry";
 import JobDataService from "../../services/job.service";
 import { AddEntry } from "../AddEntry/AddEntry";
+import ControlsDataService from "../../services/controls.service";
 
 export function Home() {
   const [entries, setEntries] = useState([]);
@@ -71,7 +72,7 @@ export function Home() {
     for (let i = 0; i < entries.length; i++) {
       await JobDataService.update(entries[i].id, entries[i]);
     }
-    await fetch("http://localhost:8000/api/update-cron-jobs/");
+    await ControlsDataService.updateCronJobs();
     alert("Update successful.");
   };
 

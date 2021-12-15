@@ -16,6 +16,10 @@ class ControlsDataService {
   turnOffDisplay() {
     return http.get("api/turn-off-display/");
   }
+
+  updateCronJobs() {
+    return http.get("api/update-cron-jobs/");
+  }
 }
 
 export default new ControlsDataService();
