@@ -63,14 +63,16 @@ class TurnOffDisplay(APIView):
 
 
 class UpdateCrontab(APIView):
-    premission_classes = [
+    permission_classes = [
         permissions.AllowAny  # needs to be set to IsAuthenticated once Service is set up on front end
     ]
 
     def get(self, request):
         all_jobs = Job.objects.all()
 
-        cron = CronTab(user="pi")  # access crontab as set user, "pi" for production
+        cron = CronTab(
+            user="www-data"
+        )  # access crontab as set user, "www-data" for production
         cron.remove_all()
 
         # Command Variables
