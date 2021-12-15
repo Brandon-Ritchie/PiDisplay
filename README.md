@@ -1,22 +1,30 @@
 # PiDisplay - Automation for Digital Displays
 
-Enable a Raspberry Pi to automatically run a cec-enabled display automatically.
-
 ## Table of Contents
+
+---
 
 - [PiDisplay - Automation for Digital Displays](#pidisplay---automation-for-digital-displays)
   - [Table of Contents](#table-of-contents)
   - [General Information](#general-information)
   - [Technologies](#technologies)
-  - [Setup](#setup)
+  - [Installation](#installation)
+    - [Operating System](#operating-system)
+    - [Hardware Configuration](#hardware-configuration)
+    - [Software Setup](#software-setup)
+  - [Usage](#usage)
 
 ## General Information
+
+---
 
 PiDisplay allows a Raspberry Pi to automatically run digital signage through a web-portal on your local network.
 
 This project has been tested on Raspberry Pi 4. Raspberry Pi Zero is not supported due to hardware limitations.
 
 ## Technologies
+
+---
 
 - Python 3.6
   - Django 3.2.9
@@ -34,28 +42,50 @@ This project has been tested on Raspberry Pi 4. Raspberry Pi Zero is not support
 - CSS
 - Apache 2
 
-## Setup
+## Installation
 
-1. Install operating system on SD card via rpi imager
+---
 
-2. Activate SSH by creating ssh file in boot directory
+### Operating System
+
+> Install Raspberry Pi OS (32-bit) using Raspberry Pi Imager. The software can be found on the official Raspberry Pi website: https://www.raspberrypi.com/software/
+
+### Hardware Configuration
+
+Enable ssh by creating a file named "ssh" in the boot directory.
+
+_Mac/Linux:_
 
 ```
 touch ssh
 ```
 
-3. Create wpa_supplicant.conf file for wireless setup
+_Windows:_
+
+```
+TODO: Figure this out
+```
+
+Create a wpa_supplicant.conf file in the boot directory.
+
+_Mac/Linux:_
 
 ```
 sudo nano wpa_supplicant.conf
 ```
 
-Paste the following configuration
+_Windows:_
+
+```
+TODO: Figure this out
+```
+
+Paste the following configuration into the file to configure a wireless connection. You can add as many network objects as you like.
 
 ```
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 update_config=1
-country=US
+country=<Insert your 2-digit country code>
 
 network={
   ssid="<name of network>"
@@ -63,23 +93,25 @@ network={
 }
 ```
 
-You can configure as many networks as you need following that configuration pattern.
+SSH into the Raspberry Pi from another computer via its IP address
 
-5. Change Raspbery Pi default password
+```
+ssh pi@xx.xx.xx.xx
+```
 
-Once logged into the Pi via ssh, run the following command and follow the prompts:
+The default password is "raspberry". Once logged into the Pi via ssh, run the following command and follow the prompts to change it to something more secure.
 
 ```
 passwd
 ```
 
-6. Disable Screen Blanking and set Hostname (optional)
-
-Run the following command via the terminal:
+We will need to disable screen blanking so the raspberry pi does not go to sleep. We can also set a hostname for the device, if wanted. Run the following command via the terminal to access the configuration menu:
 
 ```
 sudo raspi-config
 ```
+
+Follow these instructions to change the settings:
 
 > Select 1 System Options\
 > Select S4 Hostname\
@@ -89,27 +121,22 @@ sudo raspi-config
 > Select No\
 > Select Finish
 
-7. Set Up GUI
+### Software Setup
 
-Connect raspberry pi to a monitor and usb mouse or touchscreen monitor\
-Complete on-screen setup
-
-8. Update raspberry pi
+Run the following commands over ssh to update the Pi. This will likely take awhile, depending on your internet speeds.
 
 ```
 sudo apt update
 sudo apt ugrade
 ```
 
-9. Clone repository into proper directory
+Next we need to download the remote repository. Run the following command over ssh to clone the respository to the /home/pi/pi-display directory. It is very important that the repository is in this directory for the program to function.
 
 ```
 git clone https://github.com/Brandon-Ritchie/PiDisplay.git ~/pi-display
 ```
 
-10. Set up virtual environment and install requirements
-
-Inside of the ~/pi-display directory run the following commands:
+Next we need to set up a virtual enviroment for Apache. Inside of the ~/pi-display directory run the following commands:
 
 ```
 python3 -m venv .venv
@@ -117,15 +144,11 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-11. Set secret key in .env file inside of /pi-display/backend directory
+Generate and define a secret key for Django in the ~/pi-display/backend/.env file. You can generate a secret key at https://miniwebtool.com/django-secret-key-generator/
 
 ```
 sudo nano ~/pi-display/backend/.env
 ```
-
-You can generate a secret key here:
-
-https://miniwebtool.com/django-secret-key-generator/
 
 Paste the following text into your .env file
 
@@ -133,7 +156,7 @@ Paste the following text into your .env file
 SECRET_KEY=<insert your secret key here>
 ```
 
-12. Install cec-utils, chromium-chromedriver, and system python packages
+The following packages need to be installed at the system level for the display to be controlled and driven by Cron jobs.
 
 ```
 sudo apt install cec-utils -y
@@ -141,8 +164,6 @@ sudo apt install chromium-chromedriver
 pip install selenium
 pip install pyautogui
 ```
-
-13. Install Apache2 Server on Pi
 
 Install Apache2 with the following command:
 
@@ -168,8 +189,8 @@ Set permissions and change ownership with the following commands -- Maybe no lon
 ```
 //?? sudo usermod -a -G www-data pi
 //?? sudo chown -R -f www-data:www-data /var/www/html
-chmod g+w ~/pi-display/backend
-chmod g+w ~/pi-display/backend/db.sqlite3
+//?? chmod g+w ~/pi-display/backend
+//?? chmod g+w ~/pi-display/backend/db.sqlite3
 //?? sudo chown www-data ~/pi-display/.venv
 //?? sudo chown www-data ~/pi-display/backend
 //?? sudo chown www-data ~/pi-display/backend/db.sqlite3
@@ -222,3 +243,5 @@ Restart Apache for changes to take effect:
 ```
 sudo systemctl restart apache2
 ```
+
+## Usage
