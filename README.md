@@ -50,7 +50,7 @@ touch ssh
 sudo nano wpa_supplicant.conf
 ```
 
-4. Paste the following configuration
+Paste the following configuration
 
 ```
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
@@ -101,12 +101,10 @@ sudo apt update
 sudo apt ugrade
 ```
 
-9. Create pi-display directory and clone from github
+9. Clone repository into proper directory
 
 ```
-mkdir ~/pi-display
-cd ~/pi-display
-git clone https://github.com/Brandon-Ritchie/PiDisplay.git .
+git clone https://github.com/Brandon-Ritchie/PiDisplay.git ~/pi-display
 ```
 
 10. Set up virtual environment and install requirements
@@ -122,7 +120,6 @@ pip install -r requirements.txt
 11. Set secret key in .env file inside of /pi-display/backend directory
 
 ```
-touch ~/pi-display/backend/.env
 sudo nano ~/pi-display/backend/.env
 ```
 
@@ -166,11 +163,11 @@ export APACHE_RUN_USER=pi
 export APACHE_RUN_GROUP=pi
 ```
 
-Set permissions and change ownership with the following commands
+Set permissions and change ownership with the following commands -- Maybe no longer needed if using pi as the run_user and run_group
 
 ```
-sudo usermod -a -G www-data pi
-sudo chown -R -f www-data:www-data /var/www/html
+//?? sudo usermod -a -G www-data pi
+//?? sudo chown -R -f www-data:www-data /var/www/html
 chmod g+w ~/pi-display/backend
 chmod g+w ~/pi-display/backend/db.sqlite3
 //?? sudo chown www-data ~/pi-display/.venv
@@ -224,14 +221,4 @@ Restart Apache for changes to take effect:
 
 ```
 sudo systemctl restart apache2
-```
-
-1.  setup passwordless shutdown and reboot in /etc/sudoers:
-
-https://help.ubuntu.com/community/Sudoers
-
-```
-Cmnd_Alias SHUTDOWN_CMDS = /sbin/poweroff, /sbin/halt, /sbin/reboot, /sbin/shutdown
-
-www-data ALL=(ALL) NOPASSWD: SHUTDOWN_CMDS
 ```
