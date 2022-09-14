@@ -1,0 +1,8 @@
+{
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json",
+  "version": 2,
+  "projects": {
+    "pi-display-manager": "apps/pi-display-manager",
+    "pi-display-manager-e2e": "apps/pi-display-manager-e2e"
+  }
+}
