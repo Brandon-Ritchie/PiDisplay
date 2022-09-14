@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'pi-display-web-root',
+  selector: 'pi-display-manager-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })

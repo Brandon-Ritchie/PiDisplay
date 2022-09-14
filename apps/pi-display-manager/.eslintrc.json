@@ -13,7 +13,7 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "piDisplayWeb",
+            "prefix": "piDisplayManager",
             "style": "camelCase"
           }
         ],
@@ -21,7 +21,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "pi-display-web",
+            "prefix": "pi-display-manager",
             "style": "kebab-case"
           }
         ]
